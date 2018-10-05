@@ -1,9 +1,10 @@
-import { Employee } from "./employee";
-import * as Interfaces from "./interfaces";
-import "./librarianextension";
-import { Researcher } from "./researcher";
+import { Employee } from "./";
+import { ILibrarian } from "./";
+import { Researcher } from "./";
+import { Decorators } from "../..";
 
-class UniversityLibrarian implements Interfaces.ILibrarian, Employee, Researcher {
+// @Decorators.sealed("UniversityLibrarian")
+export class UniversityLibrarian implements ILibrarian, Employee, Researcher {
     public title: string = "";
 
     private Name: string = "";
@@ -48,5 +49,3 @@ class UniversityLibrarian implements Interfaces.ILibrarian, Employee, Researcher
         console.log(`${this.Name} is assisting ${custName}.`);
     }
 }
-
-export { UniversityLibrarian };

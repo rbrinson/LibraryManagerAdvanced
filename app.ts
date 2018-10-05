@@ -1,14 +1,20 @@
-// import { ChildrensBook } from "./childrensbook";
-import { UniversityLibrarian } from "./classes";
-// import { ElectronicBook } from "./electronicbook";
-import { Employee } from "./employee";
-import { Category } from "./enums";
-import { IAuthor, IBook, IKeyValuePair, ILibrarian, IMagazine, Logger } from "./interfaces";
-import * as util from "./lib/utilityFunctions";
-import "./librarianextension";
-import { ChildrensBook, ElectronicBook, LibraryBook } from "./librarybook";
-import { ReferenceItem } from "./referenceitem";
-import { Researcher } from "./researcher";
+import {
+    Util,
+    Category,
+    IKeyValuePair,
+    Logger,
+    IBook,
+    ChildrensBook,
+    ElectronicBook,
+    ReferenceItem,
+    IMagazine,
+    Employee,
+    IAuthor,
+    ILibrarian,
+    Researcher,
+    UniversityLibrarian
+} from "./";
+import "./src/employee-management/librarianextension";
 
 type Frequency = "monthly" | "annually";
 type PrintMaterial = IBook | IMagazine;
@@ -47,9 +53,9 @@ console.log("Welcome to Advanced TypeScript!");
 
 applyMixins(UniversityLibrarian, [ Employee, Researcher ]);
 
-const [book1, book2] = util.GetAllBooks();
+const [book1, book2] = Util.GetAllBooks();
 
-LogFavoriteBooks(util.GetAllBooks());
+LogFavoriteBooks(Util.GetAllBooks());
 
 const {title: booktitle, author: bookauthor} = book1;
 console.log(booktitle);
@@ -62,7 +68,7 @@ const schoolBooks: IBook[] = [
     { id: 12, title: "Clear Light of Day", author: "Anita Desai", available: true, category: Category.Fiction },
 ];
 
-const booksRead: IBook[] = util.GetAllBooks();
+const booksRead: IBook[] = Util.GetAllBooks();
 booksRead.push(...schoolBooks);
 console.log(booksRead);
 
@@ -72,8 +78,8 @@ console.log(authors);
 
 const catalogLocation: IKeyValuePair<string, IBook> = [ "A 123.456", book1 ];
 
-const allBooks: IBook[] = util.GetAllBooks();
-const allMagazines: IMagazine[] = util.GetAllMagazines();
+const allBooks: IBook[] = Util.GetAllBooks();
+const allMagazines: IMagazine[] = Util.GetAllMagazines();
 
 const readingMaterial: PrintMaterial = allMagazines[0];
 PrintTitle(readingMaterial);
@@ -89,7 +95,7 @@ const serialNovel: Serial = {
 
 const newLibrarian = new UniversityLibrarian();
 newLibrarian.doResearch("Economics");
-newLibrarian
+newLibrarian.hostSeminar("TypeScript and NodeJS");
 
 // fluent API using polymorphic this
 const eBook: ElectronicBook = new ElectronicBook();

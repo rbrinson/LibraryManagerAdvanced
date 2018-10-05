@@ -1,4 +1,4 @@
-import { IShelfItem } from "./interfaces";
+import { IShelfItem } from "./";
 
 export default class Shelf<T extends IShelfItem> {
     private items: T[] = new Array<T>();
