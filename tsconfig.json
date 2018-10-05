@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "js",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "watch": true,
+    "strictNullChecks": true,
+    "noEmitOnError": true,
+    "strict": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./app.ts"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "librarymanageradvanced",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./js/app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Robert C. Brinson",
+  "license": "ISC"
+}
