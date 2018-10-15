@@ -10,8 +10,3 @@ interface IBook {
 }
 
 export { IBook };
-
-// interface IBook {
-//     publisher: string;
-//     hasIndex: boolean;
-// }

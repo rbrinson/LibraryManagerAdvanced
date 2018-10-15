@@ -1,6 +1,7 @@
+import { IBook, ILibraryBookTitleLookupCallback, IMagazine } from "../..";
 import { Category } from "./enums";
-import { IBook, IMagazine } from "../..";
 
+// tslint:disable-next-line:no-namespace
 namespace Util {
     export function CalculateLateFee(daysLate: number): number {
         return daysLate * .25;
@@ -122,6 +123,7 @@ namespace Util {
     }
 
     export function GetTitles(author: string): string[];
+    // tslint:disable-next-line:unified-signatures
     export function GetTitles(available: boolean): string[];
     export function GetTitles(bookProperty: any): string[] {
         const allBooks = GetAllBooks();
@@ -148,6 +150,71 @@ namespace Util {
 
     export function PrintBook(book: IBook): void {
         console.log(`${book.title} by ${book.author}`);
+    }
+
+    export function randomReadingMaterialGenerator(min: number, max: number): IBook | IMagazine {
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        return (randomNumber % 2 === 0) ? Util.GetAllBooks()[0] : Util.GetAllMagazines()[0];
+    }
+
+    export function isBook(text: IBook | IMagazine): text is IBook {
+        return (text as IBook).author !== undefined;
+    }
+
+    export function getBooksByCategoryAsync(cat: Category, callback: ILibraryBookTitleLookupCallback): void {
+        setTimeout(() => {
+            try {
+                const foundBooks: string[] = Util.GetBookTitlesByCategory(cat);
+
+                if (foundBooks.length > 0) {
+                    callback(null, foundBooks);
+                } else {
+                    throw new Error("No books found.");
+                }
+            } catch (error) {
+                callback(error, []);
+            }
+        }, 2000);
+    }
+
+    export function logCategorySearchAsync(err: Error | null, titles: string[]): void {
+        if (err) {
+            console.log(`Error Message: ${err.message}`);
+        } else {
+            console.log("Found the following titles:");
+            titles.forEach((title) => {
+                console.log(title);
+            });
+        }
+    }
+
+    export function getBooksByCategoryPromise(cat: Category): Promise<string[]> {
+        const p: Promise<string[]> = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const booksFound: string[] = Util.GetBookTitlesByCategory(cat);
+                if (booksFound.length > 0) {
+                    resolve(booksFound);
+                } else {
+                    reject("No books found for that category.");
+                }
+            }, 2000);
+        });
+
+        return p;
+    }
+
+    export function logCategorySearch(titles: string[]): void {
+        console.log("Found the following titles:");
+        titles.forEach((title) => {
+            console.log(title);
+        });
+    }
+
+    export async function getBooksByCategory(cat: Category) {
+        await setTimeout(() => {
+            const foundBooks = Util.GetBookTitlesByCategory(cat);
+            Util.logCategorySearch(foundBooks);
+        }, 2000);
     }
 }
 

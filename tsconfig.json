@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "removeComments": true,
     "sourceMap": true,
     "outDir": "js",
-    "module": "commonjs",
+    "module": "CommonJS",
     "noImplicitAny": true,
     "watch": true,
     "strictNullChecks": true,
     "noEmitOnError": true,
-    "strict": true
+    "strict": true,
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules"

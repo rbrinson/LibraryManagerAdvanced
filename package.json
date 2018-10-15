@@ -7,8 +7,13 @@
     "lib": "lib"
   },
   "scripts": {
+    "start": "node js/app.js",
     "test": "npm test"
   },
   "author": "Robert C. Brinson",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.1.1",
+    "tslint": "^5.11.0"
+  }
 }

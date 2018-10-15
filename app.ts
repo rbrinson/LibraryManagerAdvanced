@@ -1,20 +1,20 @@
 import {
-    Util,
     Category,
-    IKeyValuePair,
-    Logger,
-    IBook,
     ChildrensBook,
+    CLASS_INFO,
     ElectronicBook,
-    ReferenceItem,
-    IMagazine,
     Employee,
-    IAuthor,
+    IBook,
+    IKeyValuePair,
     ILibrarian,
+    IMagazine,
+    PublicLibrarian,
     Researcher,
-    UniversityLibrarian
+    UniversityLibrarian,
+    Util,
 } from "./";
-import "./src/employee-management/librarianextension";
+import Encyclopedia from "./src/asset-management/encyclopedia";
+// import "./src/employee-management/librarianextension";
 
 type Frequency = "monthly" | "annually";
 type PrintMaterial = IBook | IMagazine;
@@ -41,12 +41,20 @@ function LogFavoriteBooks([firstBook, secondBook, ...others]: IBook[]) {
     }
 }
 
-function PrintTitle(item: PrintMaterial): void {
-    console.log(item.title);
+function PrintTitle(material: PrintMaterial): void {
+    console.log(material.title);
 }
 
 function GetMagazineByFrequency(preferredFrequency: Frequency) {
     // do something here.
+}
+
+function logVisitor(param: number | string) {
+    if (typeof param === "number") {
+        console.log (`${param} new visitors arrived. `);
+    } else {
+        console.log(`${param.toUpperCase()} visited.`);
+    }
 }
 
 console.log("Welcome to Advanced TypeScript!");
@@ -93,9 +101,9 @@ const serialNovel: Serial = {
     title: "The Gradual Tale",
 };
 
-const newLibrarian = new UniversityLibrarian();
-newLibrarian.doResearch("Economics");
-newLibrarian.hostSeminar("TypeScript and NodeJS");
+// const newLibrarian = new UniversityLibrarian();
+// newLibrarian.doResearch("Economics");
+// newLibrarian.hostSeminar("TypeScript and NodeJS");
 
 // fluent API using polymorphic this
 const eBook: ElectronicBook = new ElectronicBook();
@@ -108,3 +116,91 @@ kidbook.Checkin()
 eBook.Checkin()
     .RemoveFromCustomerDevice()
     .Checkout();
+
+logVisitor(5);
+logVisitor("Leigh Ann");
+
+const lib: ILibrarian = new PublicLibrarian();
+
+if (lib instanceof UniversityLibrarian) {
+    lib.assistFaculty();
+}
+if (lib instanceof PublicLibrarian) {
+    lib.teachCommunity();
+}
+
+const customTypeChecking: IBook | IMagazine = Util.randomReadingMaterialGenerator(0, 50);
+if (Util.isBook(customTypeChecking)) {
+    console.log(`The book's author is ${customTypeChecking.author}.`);
+} else {
+    console.log(`The magazine's publisher is ${customTypeChecking.publisher}.`);
+}
+
+const item = new Encyclopedia("Encyclopdia Britanica", 2018, 2);
+item.printItem();
+
+const mySymbol = Symbol("first_symbol");
+const anotherSymbol = Symbol("first_symbol");
+
+// console.log(mySymbol === anotherSymbol);
+console.log(typeof mySymbol);
+
+const myObject = {
+    [mySymbol]: "value for my symbol key",
+};
+
+const univLibrarian = new UniversityLibrarian();
+univLibrarian.name = "Martha";
+univLibrarian[CLASS_INFO]();
+
+const libraryCustomer = {
+    Name: "Thorne",
+    assistFaculty: (facultyName: string) => {
+        console.log(`${name} is assisting ${facultyName}.`);
+    },
+};
+
+if (libraryCustomer instanceof UniversityLibrarian) {
+    console.log("A helpful librarian.");
+} else {
+    console.log("Not a librarian.");
+}
+
+if (univLibrarian instanceof UniversityLibrarian) {
+    console.log("A helpful librarian.");
+} else {
+    console.log("Not a librarian.");
+}
+
+try {
+    libraryCustomer.assistFaculty = () => console.log("assistFaculty replacement method");
+    (lib as PublicLibrarian).teachCommunity = () => console.log("teachCommunicty replacement method");
+} catch (error) {
+    console.log(error.message);
+}
+
+libraryCustomer.assistFaculty("John");
+(lib as PublicLibrarian).teachCommunity();
+
+console.log("Beginning callback search...");
+Util.getBooksByCategoryAsync(Category.Biography, Util.logCategorySearchAsync);
+console.log("Search submitted...");
+
+console.log("Beginning promises search...");
+Util.getBooksByCategoryPromise(Category.Biography)
+    .then((titles) => {
+        Util.logCategorySearch(titles);
+        return titles.length;
+    }, (reason) => 0)
+    .then((numberOfBooks) => {
+        console.log(`Number of Books found: ${numberOfBooks}.`);
+    })
+    .catch((reason) => {
+        console.log(`Error Message: ${reason}`);
+    });
+console.log("Search submitted...");
+
+console.log("Beginning async/await search...");
+Util.getBooksByCategory(Category.Fiction)
+    .catch((reason) => { console.log(reason); });
+console.log("Search submitted...");
