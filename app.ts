@@ -14,7 +14,6 @@ import {
     Util,
 } from "./";
 import Encyclopedia from "./src/asset-management/encyclopedia";
-// import "./src/employee-management/librarianextension";
 
 type Frequency = "monthly" | "annually";
 type PrintMaterial = IBook | IMagazine;

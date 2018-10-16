@@ -11,8 +11,8 @@ namespace Decorators {
 
     // tslint:disable-next-line:ban-types
     export function logger<TFunction extends Function>(target: TFunction): TFunction {
-        // tslint:disable-next-line:ban-types
-        const newConstructor: Function = () => {
+        // tslint:disable-next-line
+        const newConstructor: Function = function() {
             console.log(`Creating new instance.`);
             console.log(target);
         };
