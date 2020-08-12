@@ -100,9 +100,9 @@ const serialNovel: Serial = {
     title: "The Gradual Tale",
 };
 
-// const newLibrarian = new UniversityLibrarian();
-// newLibrarian.doResearch("Economics");
-// newLibrarian.hostSeminar("TypeScript and NodeJS");
+const newLibrarian = new UniversityLibrarian();
+newLibrarian.doResearch("Economics");
+newLibrarian.hostSeminar("TypeScript and NodeJS");
 
 // fluent API using polymorphic this
 const eBook: ElectronicBook = new ElectronicBook();
