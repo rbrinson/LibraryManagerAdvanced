@@ -128,6 +128,11 @@ if (lib instanceof PublicLibrarian) {
     lib.teachCommunity();
 }
 
+const uvLib: ILibrarian = new UniversityLibrarian();
+if (lib instanceof UniversityLibrarian) {
+    lib.assistFaculty();
+}
+
 const customTypeChecking: IBook | IMagazine = Util.randomReadingMaterialGenerator(0, 50);
 if (Util.isBook(customTypeChecking)) {
     console.log(`The book's author is ${customTypeChecking.author}.`);
