@@ -153,6 +153,8 @@ const myObject = {
     [mySymbol]: "value for my symbol key",
 };
 
+console.log(myObject[mySymbol].toString());
+
 const univLibrarian = new UniversityLibrarian();
 univLibrarian.name = "Martha";
 univLibrarian[CLASS_INFO]();
